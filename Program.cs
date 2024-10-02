@@ -45,7 +45,6 @@ while (true)
     Console.ForegroundColor = ConsoleColor.Green;
     Console.WriteLine("The product was successfully added!");
     Console.ResetColor();
-    //Console.WriteLine("To enter a new product - follow the steps | To qui");
     Console.WriteLine("--------------------------------------------------");
 }
 
@@ -57,7 +56,6 @@ List<Product> sortedProducts = products.OrderBy(p => p.Price).ToList();
 foreach (Product p in sortedProducts) {
     Console.WriteLine(p.Category.PadRight(15) + " " + p.ProductName.PadRight(15) + " " + p.Price);
 }
-// List<Car> sortedCars = cars.OrderBy(car => car.Brand).ToList();
 Console.WriteLine();
 Console.WriteLine(" ".PadRight(16) + "Total amount:".PadRight(16) + products.Sum(p => p.Price));
 Console.WriteLine("--------------------------------------------------");
@@ -65,4 +63,4 @@ Console.ForegroundColor= ConsoleColor.Blue;
 Console.WriteLine("To enter a new product - enter: \"P\" | To search for a product - enter \"S\" | To quit - enter: \"Q\" ");
 Console.ResetColor();
 
-Console.WriteLine("branch 1 created");
+Console.WriteLine("*******************************************");
