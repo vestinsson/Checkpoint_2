@@ -64,3 +64,5 @@ Console.WriteLine("--------------------------------------------------");
 Console.ForegroundColor= ConsoleColor.Blue;
 Console.WriteLine("To enter a new product - enter: \"P\" | To search for a product - enter \"S\" | To quit - enter: \"Q\" ");
 Console.ResetColor();
+
+Console.WriteLine("branch 1 created");
