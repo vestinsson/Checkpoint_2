@@ -9,7 +9,6 @@ namespace Checkpoint_2
     internal class Inventories
     {
         private List<Product> products = new List<Product>();
-        public int index = -1;
         public void AddProduct()
         {
             while (true)
@@ -61,15 +60,7 @@ namespace Checkpoint_2
             List<Product> sortedProducts = products.OrderBy(p => p.Price).ToList();
             foreach (Product p in sortedProducts)
             {
-                if (index != -1)
-                {
-                    Console.ForegroundColor = ConsoleColor.Magenta;
-                    Console.WriteLine(p.Category.PadRight(15) + " " + p.ProductName.PadRight(15) + " " + p.Price);
-                    Console.ResetColor();
-                    index = -1;
-                }
                 Console.WriteLine(p.Category.PadRight(15) + " " + p.ProductName.PadRight(15) + " " + p.Price);
-
             }
 
             Console.WriteLine();
@@ -77,11 +68,31 @@ namespace Checkpoint_2
             Console.WriteLine("--------------------------------------------------");
         }
 
-        public int SeachProduct()
+        public void SeachProduct()
         {
             Console.Write("Enter a Product Name: ");
             string searchedProduct = Console.ReadLine();
-            return products.FindIndex(obj => obj.ProductName.Contains(searchedProduct, StringComparison.OrdinalIgnoreCase));
+
+            var matchingProducts = products.Where(p => p.ProductName.Contains(searchedProduct, StringComparison.OrdinalIgnoreCase)); // .ToList()
+
+            if (matchingProducts.Any())
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Category".PadRight(15) + " " + "Product".PadRight(15) + " " + "Price");
+                Console.ResetColor();
+
+                foreach (var p in matchingProducts)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                    Console.WriteLine(p.Category.PadRight(15) + " " + p.ProductName.PadRight(15) + " " + p.Price);
+                }
+                Console.ResetColor();
+                //DisplayProducts();
+            }
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("To enter a new product - enter: \"P\" | To search for a product - enter \"S\" | To quit - enter: \"Q\" ");
+            Console.ResetColor();
+
         }
     }
 }

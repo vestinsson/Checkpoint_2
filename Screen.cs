@@ -18,17 +18,15 @@ namespace Checkpoint_2
                 productManager.AddProduct();
                 productManager.DisplayProducts();
 
-                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.ForegroundColor = ConsoleColor.DarkBlue;
                 Console.WriteLine("To enter a new product - enter: \"P\" | To search for a product - enter \"S\" | To quit - enter: \"Q\" ");
                 Console.ResetColor();
-                Console.WriteLine("*******************************************");
 
                 string choice = Console.ReadLine().ToUpper();
                 if (choice == "Q") break;
                 if (choice == "S")
                 {
-                    productManager.index = productManager.SeachProduct();
-                    Console.WriteLine(productManager.index); // för felsökning
+                    productManager.SeachProduct();
                 }
             }
         }
