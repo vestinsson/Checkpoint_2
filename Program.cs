@@ -8,8 +8,8 @@ namespace Checkpoint_2
     {
         static void Main(string[] args)
         {
-            Screen ui = new Screen();
-            ui.Start();
+            Screen ui = new Screen(); // creates instans that runs the application
+            ui.Start(); // calling Start() method
         }
     }
 }

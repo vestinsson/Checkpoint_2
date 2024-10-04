@@ -9,26 +9,44 @@ namespace Checkpoint_2
 {
     internal class Screen
     {
-        private Inventories productManager = new Inventories();
+        private Inventories productManager = new Inventories(); // productManager encapsulated in this class
 
         public void Start()
         {
-            while (true)
-            {
-                productManager.AddProduct();
-                productManager.DisplayProducts();
+            /*** special case when program start ***/
+            productManager.AddProduct();
+            productManager.DisplayProducts();
+            /*** end special case ***/
 
-                Console.ForegroundColor = ConsoleColor.DarkBlue;
+            while (true) // running menu
+            {
+
+                Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine("To enter a new product - enter: \"P\" | To search for a product - enter \"S\" | To quit - enter: \"Q\" ");
                 Console.ResetColor();
 
                 string choice = Console.ReadLine().ToUpper();
-                if (choice == "Q") break;
-                if (choice == "S")
+                if (choice == "Q") 
+                { 
+                    break; 
+                }
+                else if (choice == "S")
                 {
                     productManager.SeachProduct();
                 }
-            }
+                else if (choice == "P")
+                {
+                    productManager.AddProduct();
+                    productManager.DisplayProducts();
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(" Invalid Choice!");
+                    Console.ResetColor();
+                }
+
+            } // end menu
         }
     }
 

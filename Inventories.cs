@@ -8,7 +8,7 @@ namespace Checkpoint_2
 {
     internal class Inventories
     {
-        private List<Product> products = new List<Product>();
+        private List<Product> products = new List<Product>(); // products encapsulated in this class
         public void AddProduct()
         {
             while (true)
@@ -19,15 +19,16 @@ namespace Checkpoint_2
 
                 Console.Write("Enter a Category: ");
                 string category = Console.ReadLine();
-                if (category.ToUpper() == "Q") return;
+                if (category.ToUpper() == "Q") return; // quit input of new products
 
                 Console.Write("Enter a Product Name: ");
                 string name = Console.ReadLine();
 
-                int price = GetValidPrice();
+                int price = GetValidPrice(); // check for integer input
 
+                // creates a new prodoct
                 Product p = new Product { Category = category, ProductName = name, Price = price };
-                products.Add(p);
+                products.Add(p); // adds created product to the list
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("The product was successfully added!");
@@ -36,12 +37,12 @@ namespace Checkpoint_2
             }
         }
 
-        private int GetValidPrice()
+        private int GetValidPrice() // the method is encapsulated in this class
         {
             while (true)
             {
                 Console.Write("Enter a Price: ");
-                if (int.TryParse(Console.ReadLine(), out int price))
+                if (int.TryParse(Console.ReadLine(), out int price)) // code snippet that check input
                 {
                     return price;
                 }
@@ -51,33 +52,42 @@ namespace Checkpoint_2
             }
         }
 
-        public void DisplayProducts()
-        {
+        // overloaded Display(string s) method code repeats almost everything of DisplayProduct(),
+        // THAT'S NO GOOD :(
+        // perhaps I try to solve it with default parameter instead off overloading the metod???
+
+        //public void DisplayProducts() // display ascending ordered list, sum up the prices
+        //{
+        //    Console.ForegroundColor = ConsoleColor.Green;
+        //    Console.WriteLine("Category".PadRight(15) + " " + "Product".PadRight(15) + " " + "Price");
+        //    Console.ResetColor();
+
+        //    // sortedProducts is local list variable 
+        //    // using lambda expression a.k.a anonymous function: p => p.Price
+        //    List<Product> sortedProducts = products.OrderBy(p => p.Price).ToList(); // local list variable
+        //    foreach (Product p in sortedProducts) // iterate the list
+        //    {
+        //        Console.WriteLine(p.Category.PadRight(15) + " " + p.ProductName.PadRight(15) + " " + p.Price);
+        //    }
+
+        //    Console.WriteLine();
+        //    Console.WriteLine(" ".PadRight(16) + "Total amount:".PadRight(16) + products.Sum(p => p.Price));
+        //    Console.WriteLine("--------------------------------------------------");
+        //}
+
+        public void DisplayProducts(string searchString = "") // takes string to search as parameter, if default empty no search/mark in list 
+        { 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Category".PadRight(15) + " " + "Product".PadRight(15) + " " + "Price");
             Console.ResetColor();
 
-            List<Product> sortedProducts = products.OrderBy(p => p.Price).ToList();
+            // sortedProducts is local list variable 
+            // using lambda expression a.k.a anonymous function: p => p.Price
+            List<Product> sortedProducts = products.OrderBy(p => p.Price).ToList(); // local list variabel
             foreach (Product p in sortedProducts)
             {
-                Console.WriteLine(p.Category.PadRight(15) + " " + p.ProductName.PadRight(15) + " " + p.Price);
-            }
-
-            Console.WriteLine();
-            Console.WriteLine(" ".PadRight(16) + "Total amount:".PadRight(16) + products.Sum(p => p.Price));
-            Console.WriteLine("--------------------------------------------------");
-        }
-
-        public void DisplayProducts(string searchString)
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Category".PadRight(15) + " " + "Product".PadRight(15) + " " + "Price");
-            Console.ResetColor();
-
-            List<Product> sortedProducts = products.OrderBy(p => p.Price).ToList();
-            foreach (Product p in sortedProducts)
-            {
-                if (p.ProductName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                // if search string found color it purple
+                if (p.ProductName.Contains(searchString, StringComparison.OrdinalIgnoreCase) && searchString != "")
                 {
                     Console.ForegroundColor = ConsoleColor.DarkMagenta;
                 }
@@ -85,38 +95,15 @@ namespace Checkpoint_2
                 Console.ResetColor();
             }
 
-            //Console.WriteLine();
-           // Console.WriteLine(" ".PadRight(16) + "Total amount:".PadRight(16) + products.Sum(p => p.Price));
             Console.WriteLine("--------------------------------------------------");
         }
 
-        public void SeachProduct()
+        public void SeachProduct() // simple menu for input search term and call to overloaded DisplayProducts()
         {
             Console.Write("Enter a Product Name: ");
             string searchedProduct = Console.ReadLine();
             Console.WriteLine("--------------------------------------------------");
             DisplayProducts(searchedProduct);
-
-            //var matchingProducts = products.Where(p => p.ProductName.Contains(searchedProduct, StringComparison.OrdinalIgnoreCase)); // .ToList()
-
-            //if (matchingProducts.Any())
-            //{
-            //    Console.ForegroundColor = ConsoleColor.Green;
-            //    Console.WriteLine("Category".PadRight(15) + " " + "Product".PadRight(15) + " " + "Price");
-            //    Console.ResetColor();
-
-            //    foreach (var p in matchingProducts)
-            //    {
-            //        Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            //        Console.WriteLine(p.Category.PadRight(15) + " " + p.ProductName.PadRight(15) + " " + p.Price);
-            //    }
-            //    Console.ResetColor();
-            //    //DisplayProducts();
-            //}
-            //Console.ForegroundColor = ConsoleColor.Blue;
-            //Console.WriteLine("To enter a new product - enter: \"P\" | To search for a product - enter \"S\" | To quit - enter: \"Q\" ");
-            //Console.ResetColor();
-
         }
     }
 }
