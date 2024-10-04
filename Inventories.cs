@@ -68,30 +68,54 @@ namespace Checkpoint_2
             Console.WriteLine("--------------------------------------------------");
         }
 
+        public void DisplayProducts(string searchString)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Category".PadRight(15) + " " + "Product".PadRight(15) + " " + "Price");
+            Console.ResetColor();
+
+            List<Product> sortedProducts = products.OrderBy(p => p.Price).ToList();
+            foreach (Product p in sortedProducts)
+            {
+                if (p.ProductName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                }
+                Console.WriteLine(p.Category.PadRight(15) + " " + p.ProductName.PadRight(15) + " " + p.Price);
+                Console.ResetColor();
+            }
+
+            //Console.WriteLine();
+           // Console.WriteLine(" ".PadRight(16) + "Total amount:".PadRight(16) + products.Sum(p => p.Price));
+            Console.WriteLine("--------------------------------------------------");
+        }
+
         public void SeachProduct()
         {
             Console.Write("Enter a Product Name: ");
             string searchedProduct = Console.ReadLine();
+            Console.WriteLine("--------------------------------------------------");
+            DisplayProducts(searchedProduct);
 
-            var matchingProducts = products.Where(p => p.ProductName.Contains(searchedProduct, StringComparison.OrdinalIgnoreCase)); // .ToList()
+            //var matchingProducts = products.Where(p => p.ProductName.Contains(searchedProduct, StringComparison.OrdinalIgnoreCase)); // .ToList()
 
-            if (matchingProducts.Any())
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Category".PadRight(15) + " " + "Product".PadRight(15) + " " + "Price");
-                Console.ResetColor();
+            //if (matchingProducts.Any())
+            //{
+            //    Console.ForegroundColor = ConsoleColor.Green;
+            //    Console.WriteLine("Category".PadRight(15) + " " + "Product".PadRight(15) + " " + "Price");
+            //    Console.ResetColor();
 
-                foreach (var p in matchingProducts)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                    Console.WriteLine(p.Category.PadRight(15) + " " + p.ProductName.PadRight(15) + " " + p.Price);
-                }
-                Console.ResetColor();
-                //DisplayProducts();
-            }
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("To enter a new product - enter: \"P\" | To search for a product - enter \"S\" | To quit - enter: \"Q\" ");
-            Console.ResetColor();
+            //    foreach (var p in matchingProducts)
+            //    {
+            //        Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            //        Console.WriteLine(p.Category.PadRight(15) + " " + p.ProductName.PadRight(15) + " " + p.Price);
+            //    }
+            //    Console.ResetColor();
+            //    //DisplayProducts();
+            //}
+            //Console.ForegroundColor = ConsoleColor.Blue;
+            //Console.WriteLine("To enter a new product - enter: \"P\" | To search for a product - enter \"S\" | To quit - enter: \"Q\" ");
+            //Console.ResetColor();
 
         }
     }
